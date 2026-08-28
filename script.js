@@ -94,7 +94,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
 const contactForm = document.querySelector('#contact-form');
 const formNote = document.querySelector('#form-note');
-const recipient = String.fromCharCode(...[116,104,101,109,111,110,105,115,104,104,115,104,101,116,116,121,64,103,109,97,105,108,46,99,111,109]);
+const formspreeFormId = 'REPLACE_WITH_FORMSPREE_FORM_ID';
 
 contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -109,19 +109,22 @@ contactForm?.addEventListener('submit', (event) => {
     _template: 'table'
   };
   const button = contactForm.querySelector('button[type="submit"]');
+  if (formspreeFormId === 'REPLACE_WITH_FORMSPREE_FORM_ID') {
+    formNote.textContent = 'Add the Formspree Form ID to activate inquiries.';
+    return;
+  }
   formNote.textContent = 'Sending securely…';
   if (button) button.disabled = true;
 
-  fetch('/api/contact', {
+  fetch(`https://formspree.io/f/${formspreeFormId}`, {
     method: 'POST',
-    keepalive: true,
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   })
     .then((response) => response.json().then((result) => ({ ok: response.ok, result })))
     .then(({ ok, result }) => {
-      if (!ok || result.success === false) throw new Error(result.message || 'Delivery unavailable');
-      formNote.textContent = 'Inquiry delivered to the email relay. Please check your inbox or spam folder.';
+      if (!ok || result.errors?.length) throw new Error(result.errors?.[0]?.message || 'Formspree rejected the inquiry');
+      formNote.textContent = 'Inquiry delivered. Please check your inbox or spam folder.';
       contactForm.reset();
     })
     .catch((error) => {
