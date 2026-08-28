@@ -21,11 +21,17 @@ export default async function handler(request, response) {
     })
   });
 
-  const result = await relay.json().catch(() => ({}));
+  const rawResult = await relay.text();
+  let result = {};
+  try {
+    result = JSON.parse(rawResult || '{}');
+  } catch {
+    result = { message: `FormSubmit returned a non-JSON response (HTTP ${relay.status})` };
+  }
   if (!relay.ok || result.success === false) {
     return response.status(502).json({
       success: false,
-      message: result.message || 'The email relay rejected the inquiry'
+      message: result.message || `The email relay rejected the inquiry (HTTP ${relay.status}). Confirm the recipient activation email and try again.`
     });
   }
 
