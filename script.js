@@ -122,7 +122,7 @@ contactForm?.addEventListener('submit', (event) => {
     .then((response) => response.json().then((result) => ({ ok: response.ok, result })))
     .then(({ ok, result }) => {
       if (!ok || result.success === false) throw new Error(result.message || 'Delivery unavailable');
-      formNote.textContent = 'Signal received. Thank you — I’ll get back to you soon.';
+      formNote.textContent = 'Request accepted by the email relay. Please check your inbox or spam folder.';
       contactForm.reset();
     })
     .catch(() => {
@@ -131,7 +131,7 @@ contactForm?.addEventListener('submit', (event) => {
       const beacon = new Blob([JSON.stringify(payload)], { type: 'application/json' });
       const queued = navigator.sendBeacon(`https://formsubmit.co/ajax/${recipient}`, beacon);
       if (queued) {
-        formNote.textContent = 'Inquiry sent. Thank you — I’ll get back to you soon.';
+        formNote.textContent = 'Request queued for delivery. Please check your inbox or spam folder.';
         contactForm.reset();
       } else {
         formNote.textContent = 'The inquiry could not be queued. Please try once more.';
