@@ -120,7 +120,7 @@ contactForm?.addEventListener('submit', (event) => {
     .then((response) => response.json().then((result) => ({ ok: response.ok, result })))
     .then(({ ok, result }) => {
       if (!ok || result.errors?.length) throw new Error(result.errors?.[0]?.message || 'Formspree rejected the inquiry');
-      formNote.textContent = 'Inquiry delivered. Please check your inbox or spam folder.';
+      formNote.textContent = 'Thanks — your inquiry is on its way. I’ll be in touch shortly.';
       contactForm.reset();
     })
     .catch((error) => {
