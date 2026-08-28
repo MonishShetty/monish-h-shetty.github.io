@@ -173,3 +173,7 @@
     opacity:.2;
   }
 }
+
+/* Give the tight hero display face enough air between the c and l in
+   “click” so the word remains immediately legible at large sizes. */
+.hero h1 em{letter-spacing:-.04em}
