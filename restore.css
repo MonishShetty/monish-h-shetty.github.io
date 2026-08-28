@@ -51,7 +51,35 @@
   transform: none;
 }
 
+.contact::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 70px;
+  right: 28px;
+  width: 310px;
+  height: 410px;
+  pointer-events: none;
+  background: url("assets/monish-halftone-contact.png") center / contain no-repeat;
+  opacity: .82;
+  mix-blend-mode: screen;
+  filter: saturate(.9) contrast(1.08);
+  animation: contact-portrait-float 7s ease-in-out infinite;
+}
+
+.contact > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes contact-portrait-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+
 @keyframes marquee-left {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-25%, 0, 0); }
 }
+
+@media(max-width:800px){.contact::after{top:92px;right:0;width:210px;height:275px;opacity:.24}.contact h2{max-width:55%}}
