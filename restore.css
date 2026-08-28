@@ -30,6 +30,27 @@
   overflow: hidden;
 }
 
+.contact-form .field-invalid {
+  border-color: #ff8a76;
+  box-shadow: 0 0 0 3px rgba(255, 112, 74, .14);
+}
+
+.field-error {
+  min-height: 14px;
+  color: #ff9b87;
+  font: 500 10px/1.4 var(--mono);
+}
+
+.form-note {
+  min-height: 16px;
+}
+
+.button:disabled {
+  opacity: .55;
+  cursor: wait;
+  transform: none;
+}
+
 @keyframes marquee-left {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-25%, 0, 0); }

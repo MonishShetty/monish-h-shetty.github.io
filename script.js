@@ -95,9 +95,35 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 const contactForm = document.querySelector('#contact-form');
 const formNote = document.querySelector('#form-note');
 const formspreeFormId = 'myeyybzn';
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const namePattern = /^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ .'-]{1,48}$/;
+
+const validateField = (field) => {
+  const error = document.querySelector(`#${field.getAttribute('aria-describedby')}`);
+  const value = field.value.trim();
+  let message = '';
+  if (!value) message = `${field.name === 'name' ? 'Name' : field.name === 'email' ? 'Email' : 'Project details'} is required.`;
+  else if (field.name === 'name' && !namePattern.test(value)) message = 'Use 2–50 characters: letters, spaces, apostrophes, or hyphens.';
+  else if (field.name === 'email' && !emailPattern.test(value)) message = 'Enter a valid email address, like you@example.com.';
+  else if (field.name === 'message' && value.length < 12) message = 'Please share at least 12 characters about what you are building.';
+  field.classList.toggle('field-invalid', Boolean(message));
+  field.setAttribute('aria-invalid', String(Boolean(message)));
+  if (error) error.textContent = message;
+  return !message;
+};
+
+contactForm?.querySelectorAll('input:not([name="_gotcha"]), textarea').forEach((field) => {
+  field.addEventListener('blur', () => validateField(field));
+  field.addEventListener('input', () => { if (field.classList.contains('field-invalid')) validateField(field); });
+});
 
 contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
+  const fieldsValid = [...contactForm.querySelectorAll('input:not([name="_gotcha"]), textarea')].every(validateField);
+  if (!fieldsValid) {
+    formNote.textContent = 'Please correct the highlighted fields before sending.';
+    return;
+  }
   const data = new FormData(contactForm);
   const name = String(data.get('name') || '').trim();
   const email = String(data.get('email') || '').trim();
