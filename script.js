@@ -104,11 +104,18 @@ contactForm?.addEventListener('submit', (event) => {
   const payload = {
     name,
     message,
+    _gotcha: String(data.get('_gotcha') || ''),
     _subject: `Portfolio website inquiry from ${name}`,
     _captcha: 'false',
     _template: 'table'
   };
   const button = contactForm.querySelector('button[type="submit"]');
+  let lastSubmission = 0;
+  try { lastSubmission = Number(sessionStorage.getItem('portfolio-last-submission') || 0); } catch {}
+  if (Date.now() - lastSubmission < 30000) {
+    formNote.textContent = 'Please wait a moment before sending another inquiry.';
+    return;
+  }
   formNote.textContent = 'Sending securely…';
   if (button) button.disabled = true;
 
@@ -121,6 +128,7 @@ contactForm?.addEventListener('submit', (event) => {
     .then(({ ok, result }) => {
       if (!ok || result.errors?.length) throw new Error(result.errors?.[0]?.message || 'Formspree rejected the inquiry');
       formNote.textContent = 'Thanks — your inquiry is on its way. I’ll be in touch shortly.';
+      try { sessionStorage.setItem('portfolio-last-submission', String(Date.now())); } catch {}
       contactForm.reset();
     })
     .catch((error) => {

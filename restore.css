@@ -22,6 +22,14 @@
   flex: 0 0 max-content;
 }
 
+.form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 @keyframes marquee-left {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-25%, 0, 0); }
