@@ -55,10 +55,10 @@
   content: "";
   position: absolute;
   z-index: 2;
-  right: -4px;
-  top: 58px;
-  width: 330px;
-  height: 470px;
+  right: -22px;
+  top: 28px;
+  width: 390px;
+  height: 540px;
   pointer-events: none;
   background: url("assets/monish-halftone-contact.png") center / contain no-repeat;
   opacity: .88;
@@ -88,10 +88,10 @@
 .contact-system {
   position: absolute;
   z-index: 0;
-  top: 26px;
-  right: 12px;
-  width: 500px;
-  height: 380px;
+  top: 30px;
+  right: 18px;
+  width: 360px;
+  height: 270px;
   margin: 0;
   opacity: .48;
   pointer-events: none;
@@ -119,4 +119,4 @@
   to { transform: translate3d(-25%, 0, 0); }
 }
 
-@media(max-width:800px){.hero-visual::after{right:-18px;top:28px;width:245px;height:360px;opacity:.86}.contact::after{display:none}.contact-system{top:64px;right:-45px;width:360px;height:300px;opacity:.22}.contact h2{max-width:100%}}
+@media(max-width:800px){.hero-visual::after{right:-22px;top:18px;width:280px;height:410px;opacity:.86}.contact::after{display:none}.contact-system{top:36px;right:-58px;width:300px;height:230px;opacity:.22}.contact h2{max-width:100%}}
