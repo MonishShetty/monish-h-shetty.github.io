@@ -100,9 +100,12 @@ contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   const data = new FormData(contactForm);
   const name = String(data.get('name') || '').trim();
+  const email = String(data.get('email') || '').trim();
   const message = String(data.get('message') || '').trim();
   const payload = {
     name,
+    email,
+    _replyto: email,
     message,
     _gotcha: String(data.get('_gotcha') || ''),
     _subject: `Portfolio website inquiry from ${name}`,
