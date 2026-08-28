@@ -112,9 +112,8 @@ contactForm?.addEventListener('submit', (event) => {
   formNote.textContent = 'Sending securely…';
   if (button) button.disabled = true;
 
-  fetch(`https://formsubmit.co/ajax/${recipient}`, {
+  fetch('/api/contact', {
     method: 'POST',
-    mode: 'cors',
     keepalive: true,
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -122,20 +121,11 @@ contactForm?.addEventListener('submit', (event) => {
     .then((response) => response.json().then((result) => ({ ok: response.ok, result })))
     .then(({ ok, result }) => {
       if (!ok || result.success === false) throw new Error(result.message || 'Delivery unavailable');
-      formNote.textContent = 'Request accepted by the email relay. Please check your inbox or spam folder.';
+      formNote.textContent = 'Inquiry delivered to the email relay. Please check your inbox or spam folder.';
       contactForm.reset();
     })
-    .catch(() => {
-      // Local file previews can block cross-origin fetches. Beacon sends the
-      // same request without a preflight and keeps the page in place.
-      const beacon = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-      const queued = navigator.sendBeacon(`https://formsubmit.co/ajax/${recipient}`, beacon);
-      if (queued) {
-        formNote.textContent = 'Request queued for delivery. Please check your inbox or spam folder.';
-        contactForm.reset();
-      } else {
-        formNote.textContent = 'The inquiry could not be queued. Please try once more.';
-      }
+    .catch((error) => {
+      formNote.textContent = error.message || 'The inquiry could not be delivered. Please try once more.';
     })
     .finally(() => { if (button) button.disabled = false; });
 });
