@@ -94,7 +94,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
 const contactForm = document.querySelector('#contact-form');
 const formNote = document.querySelector('#form-note');
-const formspreeFormId = 'REPLACE_WITH_FORMSPREE_FORM_ID';
+const formspreeFormId = 'myeyybzn';
 
 contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -109,10 +109,6 @@ contactForm?.addEventListener('submit', (event) => {
     _template: 'table'
   };
   const button = contactForm.querySelector('button[type="submit"]');
-  if (formspreeFormId === 'REPLACE_WITH_FORMSPREE_FORM_ID') {
-    formNote.textContent = 'Add the Formspree Form ID to activate inquiries.';
-    return;
-  }
   formNote.textContent = 'Sending securely…';
   if (button) button.disabled = true;
 

@@ -18,4 +18,4 @@ Open `index.html` in a browser, or serve the folder with any static file server.
 
 ## Deploy
 
-Import the repository into Vercel. For the contact form, create a Formspree form and replace `REPLACE_WITH_FORMSPREE_FORM_ID` in `script.js` with the generated Form ID. The form then submits in the background without exposing the recipient email or requiring a Vercel function.
+Import the repository into Vercel. The contact form is connected to Formspree and submits in the background without exposing the recipient email or requiring a Vercel function.
