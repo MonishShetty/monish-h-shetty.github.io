@@ -220,3 +220,13 @@
   .projects .project-grid > .project-card.in-view,
   .projects .project-grid > .project-card:nth-child(2).in-view{transform:translate3d(0,0,0)}
 }
+
+@media(prefers-reduced-motion:reduce){
+  .systems .system-grid > .system-card,
+  .projects .project-grid > .project-card,
+  .projects .project-grid > .project-card:nth-child(2){
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+}
