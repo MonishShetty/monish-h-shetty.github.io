@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">MHS</title>
+  <desc id="desc">Monish H. Shetty monogram</desc>
+  <defs>
+    <linearGradient id="frame" x1="16" y1="14" x2="112" y2="114" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff704a"/>
+      <stop offset=".52" stop-color="#b3a3ff"/>
+      <stop offset="1" stop-color="#8ef1d0"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="32" y1="28" x2="99" y2="101" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff4ed"/>
+      <stop offset="1" stop-color="#ff704a"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="#0a0a0c"/>
+  <circle cx="64" cy="64" r="49" fill="none" stroke="url(#frame)" stroke-width="3"/>
+  <path d="M31 91V37l18 28 18-28v54M77 91V37l20 27c8 11 1 27-12 27H77" fill="none" stroke="url(#ink)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="104" cy="24" r="4" fill="#ff704a"/>
+</svg>
