@@ -186,3 +186,37 @@
   .hero h1{font-size:clamp(3.4rem,16vw,5.5rem);max-width:100%}
   .hero-intro{max-width:100%}
 }
+
+/* Use one consistent reveal motion for every engineering card. */
+.systems .system-grid > .system-card{
+  opacity:0;
+  transform:translate3d(0,25px,0);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.22,.8,.2,1);
+}
+.systems .system-grid > .system-card.in-view{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+
+/* Let the selected builds enter from opposite sides while sharing one
+   smooth timing curve. */
+.projects .project-grid > .project-card{
+  opacity:0;
+  transform:translate3d(-34px,0,0);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.22,.8,.2,1),border-color .35s ease,box-shadow .35s ease;
+}
+.projects .project-grid > .project-card:nth-child(2){
+  transform:translate3d(34px,0,0);
+  transition-delay:.12s;
+}
+.projects .project-grid > .project-card.in-view{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+
+@media(max-width:800px){
+  .projects .project-grid > .project-card{transform:translate3d(-22px,0,0)}
+  .projects .project-grid > .project-card:nth-child(2){transform:translate3d(22px,0,0)}
+  .projects .project-grid > .project-card.in-view,
+  .projects .project-grid > .project-card:nth-child(2).in-view{transform:translate3d(0,0,0)}
+}
